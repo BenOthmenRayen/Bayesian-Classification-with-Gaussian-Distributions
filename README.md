@@ -50,10 +50,10 @@ y = y[indices]
      
 ### Step 3: Split the Dataset into Training and Test Sets    
 We use 50% of the data for training, and 50% for testing:   
-- X_train : données d’entraînement (50%)   
-- X_test : données de test (50%)   
-- y_train : labels d’entraînement   
-- y_test : labels de test
+- X_train : training data (50%)    
+- X_test : test data (50%)         
+- y_train :  training labels     
+- y_test : test labels    
 
 ```   
 from sklearn.model_selection import train_test_split   
@@ -104,6 +104,27 @@ def bayes_classifier(x):
    
     return 1 if posterior_y1 > posterior_y0 else 0
 ```
+
+### Step 7: Predict on Test Set and Evaluate Accuracy   
+We classify all test points and compare with true labels:
+- applies your bayes_classifier function to each element x in X_test
+- import the accuracy_score function from scikit-learn(compares two label arrays: the true labels and the predicted labels).
+- computes the accuracy:
+    - y_test: the actual test labels (ground truth)
+    - y_pred: the predicted labels from your classifier
+
+```
+y_pred = np.array([bayes_classifier(x) for x in X_test])   
+    
+from sklearn.metrics import accuracy_score   
+accuracy = accuracy_score(y_test, y_pred)   
+print("Accuracy of Bayes classifier:", accuracy)   
+```
+
+
+
+
+ 
 
 
 
