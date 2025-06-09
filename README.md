@@ -23,8 +23,18 @@ mu1, sigma1 = -2, 1
 mu2, sigma2 = 2, 1
    
 X1 = np.random.normal(mu1, sigma1, 10000)  
-X2 = np.random.normal(mu2, sigma2, 20000)  
+X2 = np.random.normal(mu2, sigma2, 20000)
+print(X1)
+print(X2)
+print("X1 mean: ", np.mean(X1))
+print("X1 std: ", np.std(X1))
+print("X2 mean: ", np.mean(X2))
+print("X2 std: ", np.std(X2))  
 ```
+<p align="center">    
+    <img src="media/Capture d’écran 2025-06-08 192320.png" width="60%" />      
+</p>
+    
      
 ### Step 2: Build the Dataset with Class Labels    
 Each sample is labeled:   
@@ -46,8 +56,13 @@ y = np.concatenate([y1, y2])
 indices = np.random.permutation(len(X))   
 X = X[indices]
 y = y[indices]
+print(X)
+print(Y)
 ```
-     
+<p align="center">    
+    <img src="media/2.png" width="60%" />      
+</p>    
+           
 ### Step 3: Split the Dataset into Training and Test Sets    
 We use 50% of the data for training, and 50% for testing:   
 - X_train : training data (50%)    
@@ -58,8 +73,16 @@ We use 50% of the data for training, and 50% for testing:
 ```   
 from sklearn.model_selection import train_test_split   
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)    
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+print(X_train)
+print(X_test)
+print(Y_train)
+print(Y_test)  
 ```
+<p align="center">    
+    <img src="media/3.png" width="60%" />      
+</p>    
+    
 ### Step 4: Estimate the Likelihoods    
 Assuming Gaussian distribution, we estimate:   
 -  selects all training samples where the label is 1
@@ -76,16 +99,29 @@ mu_1 = np.mean(X_train_1)
 sigma_1 = np.std(X_train_1)   
    
 mu_0 = np.mean(X_train_0)   
-sigma_0 = np.std(X_train_0)   
+sigma_0 = np.std(X_train_0)
+print(mu_1)
+print(sigma_1)
+print(mu_2)
+print(sigma_2)
 ```
-   
+<p align="center">    
+    <img src="media/4.png" width="60%" />      
+</p>     
+       
 ### Step 5: Estimate Prior Probabilities P(Y=1) and P(Y=0):  
 we are calculating the prior probabilities of each class (P(y=1) and P(y=0)), which are essential in **Bayes’ theorem**.    
 
 ```
 P_y1 = len(X_train_1) / len(X_train)    
 P_y0 = len(X_train_0) / len(X_train)
+print(p_y0)
+print(p_y1)    
 ```
+<p align="center">    
+    <img src="media/5.png" width="60%" />      
+</p>   
+    
 ### step 6:Define the bayes classifier:   
 Now we define a function that applies Bayes’ rule for classification.   
 It calculates posterior probabilities using the Gaussian likelihoods and priors.     
@@ -114,12 +150,19 @@ We classify all test points and compare with true labels:
     - y_pred: the predicted labels from your classifier
 
 ```
-y_pred = np.array([bayes_classifier(x) for x in X_test])   
-    
+y_pred = np.array([bayes_classifier(x) for x in X_test])
+print(Y_pred)
+print(Y_pred.shape)     
+        
 from sklearn.metrics import accuracy_score   
 accuracy = accuracy_score(y_test, y_pred)   
-print("Accuracy of Bayes classifier:", accuracy)   
+print("Précision du classifieur de Bayes :", accuracy)   
 ```
+<p align="center">    
+    <img src="media/6.png" width="50%" />  
+    <img src="media/7.png" width="65%" /> 
+</p>
+
 
 
 
